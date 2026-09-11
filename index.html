@@ -1,0 +1,1054 @@
+<title>SOP — Inscription CCV(E)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root { color-scheme: light; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #111;
+    background: #fff;
+    padding: 28px 20px 72px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 700px; margin: 0 auto; }
+
+  /* ── Header ── */
+  .header { margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #e0e0e0; }
+  .header h1 { font-size: 20px; font-weight: 600; margin-bottom: 3px; }
+  .header p { font-size: 13px; color: #666; }
+
+  /* ── Tabs ── */
+  .tabs { display: flex; border-bottom: 1.5px solid #e0e0e0; margin-bottom: 28px; }
+  .tab {
+    padding: 10px 16px;
+    font-family: inherit; font-size: 14px; font-weight: 500;
+    color: #888; border: none; background: none;
+    border-bottom: 2px solid transparent; margin-bottom: -1.5px;
+    cursor: pointer; user-select: none; white-space: nowrap;
+    transition: color 0.12s;
+  }
+  .tab:hover { color: #333; }
+  .tab.active { color: #111; border-bottom-color: #111; font-weight: 600; }
+  .tab:focus-visible { outline: 2px solid #111; outline-offset: 2px; }
+
+  .step-panel { display: none; }
+  .step-panel.active { display: block; }
+
+  /* ── Section ── */
+  .section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: #888; margin-bottom: 8px;
+  }
+
+  /* ── Form card (Step 1) ── */
+  .form-card { border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
+
+  .form-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 9px 14px; border-bottom: 1px solid #f0f0f0;
+  }
+  .form-row:last-child { border-bottom: none; }
+  .form-row.top { align-items: flex-start; padding-top: 12px; }
+
+  .form-label { font-size: 13px; color: #666; width: 170px; flex-shrink: 0; line-height: 1.4; }
+  .form-sublabel { font-size: 11px; color: #aaa; display: block; }
+
+  .f-input {
+    flex: 1; min-width: 0;
+    font-family: inherit; font-size: 14px; color: #111;
+    border: none; border-bottom: 1px solid #e8e8e8;
+    background: transparent; outline: none;
+    padding: 3px 2px; transition: border-color 0.15s;
+  }
+  .f-input:focus { border-bottom-color: #111; }
+  .f-input::placeholder { color: #bbb; }
+  .f-input.sm { width: 120px; flex: none; }
+
+  .f-pair { display: flex; gap: 10px; flex: 1; min-width: 0; }
+  .f-pair .f-input { flex: 1; }
+
+  /* Button group inline (Step 1) */
+  .row-grp { display: flex; border: 1px solid #ddd; border-radius: 5px; overflow: hidden; flex-shrink: 0; }
+  .row-grp button {
+    font-family: inherit; font-size: 12px; font-weight: 500;
+    padding: 4px 12px; border: none; border-right: 1px solid #ddd;
+    background: transparent; color: #888; cursor: pointer;
+    transition: background 0.1s, color 0.1s; line-height: 1.4;
+  }
+  .row-grp button:last-child { border-right: none; }
+  .row-grp button:hover { background: #f5f5f5; color: #333; }
+  .row-grp button.sel { background: #111; color: #fff; }
+  .row-grp button:focus-visible { outline: 2px solid #111; outline-offset: -2px; }
+
+  /* ── Conditions table ── */
+  .cond-wrap { border: 1px solid #e0e0e0; border-radius: 8px; overflow-x: auto; }
+  .cond-table { width: 100%; border-collapse: collapse; min-width: 480px; }
+  .cond-table thead tr { background: #f7f7f7; border-bottom: 1px solid #e0e0e0; }
+  .cond-table thead th {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; color: #888;
+    padding: 8px 12px; text-align: left;
+  }
+  .cond-table tbody tr { border-bottom: 1px solid #f0f0f0; }
+  .cond-table tbody tr:last-child { border-bottom: none; }
+  .cond-table tbody td { padding: 9px 12px; vertical-align: middle; }
+  .cond-table td:first-child { font-size: 13.5px; color: #111; }
+
+  .c-input {
+    font-family: inherit; font-size: 13px; color: #111;
+    border: none; border-bottom: 1px solid #e0e0e0;
+    background: transparent; outline: none;
+    padding: 2px 2px; width: 100%;
+    transition: border-color 0.15s;
+  }
+  .c-input:focus { border-bottom-color: #111; }
+  .c-input::placeholder { color: #ccc; font-size: 12px; }
+
+  /* ── Doc list (Step 2) ── */
+  .doc-list { border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
+
+  .doc-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 14px; border-bottom: 1px solid #f0f0f0;
+  }
+  .doc-item:last-child { border-bottom: none; }
+
+  /* Checkbox */
+  .chk-box {
+    width: 18px; height: 18px; flex-shrink: 0;
+    border: 1.75px solid #ccc; border-radius: 3px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background 0.12s, border-color 0.12s; background: #fff;
+    user-select: none;
+  }
+  .chk-box.checked { background: #111; border-color: #111; }
+  .chk-box svg { display: block; }
+  .chk-box svg path { opacity: 0; transition: opacity 0.12s; }
+  .chk-box.checked svg path { opacity: 1; }
+
+  .doc-name { font-size: 14px; color: #111; flex: 1; line-height: 1.4; }
+  .doc-name.done { color: #aaa; text-decoration: line-through; text-decoration-color: #bbb; }
+
+  .opt-tag {
+    font-size: 10px; font-weight: 500; color: #aaa;
+    background: #f0f0f0; border-radius: 3px; padding: 1px 5px;
+    margin-left: 4px; white-space: nowrap;
+  }
+
+  /* Dropdown button group */
+  .btn-grp { display: flex; border: 1px solid #ddd; border-radius: 5px; overflow: hidden; flex-shrink: 0; }
+  .btn-grp button {
+    font-family: inherit; font-size: 12px; font-weight: 500;
+    padding: 4px 9px; border: none; border-right: 1px solid #ddd;
+    background: transparent; color: #888; cursor: pointer;
+    transition: background 0.1s, color 0.1s; line-height: 1.4;
+  }
+  .btn-grp button:last-child { border-right: none; }
+  .btn-grp button:hover { background: #f5f5f5; color: #333; }
+  .btn-grp button.sel { background: #111; color: #fff; }
+  .btn-grp button:focus-visible { outline: 2px solid #111; outline-offset: -2px; }
+
+  /* Note input (inline text after checkbox) */
+  .note-inp {
+    font-family: inherit; font-size: 13px; color: #111;
+    border: none; border-bottom: 1px dashed #ddd;
+    background: transparent; outline: none;
+    padding: 2px 0; width: 130px; flex-shrink: 0;
+    transition: border-color 0.15s;
+  }
+  .note-inp:focus { border-bottom-color: #111; border-style: solid; }
+  .note-inp::placeholder { color: #ccc; font-style: italic; font-size: 12px; }
+
+  /* Footer */
+  .step-footer { margin-top: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+  .progress-txt { font-size: 13px; color: #999; font-variant-numeric: tabular-nums; }
+  .btn-reset {
+    font-family: inherit; font-size: 13px; font-weight: 500;
+    color: #888; border: 1px solid #e0e0e0; background: transparent;
+    padding: 6px 14px; border-radius: 6px; cursor: pointer;
+    transition: color 0.12s, border-color 0.12s;
+  }
+  .btn-reset:hover { color: #111; border-color: #999; }
+  .btn-reset:focus-visible { outline: 2px solid #111; outline-offset: 2px; }
+
+  @media (max-width: 500px) {
+    body { padding: 20px 14px 60px; }
+    .form-label { width: 130px; font-size: 12px; }
+    .tab { padding: 10px 10px; font-size: 13px; }
+    .note-inp { width: 90px; }
+  }
+
+  /* ── PDF button ── */
+  .btn-pdf {
+    font-family: inherit; font-size: 12px; font-weight: 500;
+    color: #aaa; border: 1px solid #e8e8e8; background: transparent;
+    padding: 5px 12px; border-radius: 6px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 5px;
+    transition: color 0.12s, border-color 0.12s;
+  }
+  .btn-pdf:hover { color: #333; border-color: #bbb; }
+  .btn-pdf:focus-visible { outline: 2px solid #111; outline-offset: 2px; }
+  .btn-pdf svg { flex-shrink: 0; }
+
+  /* ── PDF hidden output ── */
+  #pdf-output {
+    position: fixed; left: 0; top: 0; z-index: -9999;
+    width: 794px; /* A4 px ~96dpi */
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px; line-height: 1.55; color: #111; background: #fff;
+    padding: 52px 56px;
+  }
+  #pdf-output .pdf-title { font-size: 18px; font-weight: 600; margin-bottom: 3px; }
+  #pdf-output .pdf-sub { font-size: 11px; color: #888; margin-bottom: 4px; }
+  #pdf-output .pdf-addr { font-size: 13px; font-weight: 600; color: #111; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1.5px solid #e0e0e0; }
+  #pdf-output .pdf-sect { margin-bottom: 22px; }
+  #pdf-output .pdf-sect-title {
+    font-size: 9px; font-weight: 600; letter-spacing: 0.09em;
+    text-transform: uppercase; color: #999; margin-bottom: 8px;
+  }
+  #pdf-output .pdf-table { width: 100%; border-collapse: collapse; }
+  #pdf-output .pdf-table tr { border-bottom: 1px solid #f0f0f0; }
+  #pdf-output .pdf-table td { padding: 6px 0; vertical-align: top; }
+  #pdf-output .pdf-table td:first-child { color: #888; width: 180px; font-size: 11px; }
+  #pdf-output .pdf-table td:last-child { color: #111; font-size: 12px; font-weight: 500; }
+  #pdf-output .pdf-cond-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  #pdf-output .pdf-cond-table th { font-size: 9.5px; font-weight: 600; color: #888; padding: 5px 8px; text-align: left; border-bottom: 1px solid #e0e0e0; background: #f9f9f9; }
+  #pdf-output .pdf-cond-table td { padding: 6px 8px; border-bottom: 1px solid #f5f5f5; }
+  #pdf-output .pdf-cond-table td:first-child { color: #444; font-weight: 500; }
+  #pdf-output .pdf-docs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  #pdf-output .pdf-doc-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid #f5f5f5; }
+  #pdf-output .pdf-doc-row:last-child { border-bottom: none; }
+  #pdf-output .pdf-chk { width: 12px; height: 12px; border: 1.5px solid #ccc; border-radius: 2px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; }
+  #pdf-output .pdf-chk.done { background: #111; border-color: #111; }
+  #pdf-output .pdf-badge { font-size: 9px; font-weight: 600; padding: 2px 6px; border-radius: 3px; flex-shrink: 0; white-space: nowrap; }
+  #pdf-output .pdf-badge.oui { background: #e6f4ea; color: #1a7f37; }
+  #pdf-output .pdf-badge.non { background: #fff0f0; color: #c0392b; }
+  #pdf-output .pdf-badge.na  { background: #f5f5f5; color: #999; }
+  #pdf-output .pdf-badge.nd  { background: #f5f5f5; color: #bbb; }
+  #pdf-output .pdf-doc-name { font-size: 11px; color: #333; }
+  #pdf-output .pdf-doc-name.done { color: #aaa; text-decoration: line-through; }
+  #pdf-output .pdf-note { font-size: 10px; color: #888; font-style: italic; margin-left: 4px; }
+  #pdf-output .pdf-footer { margin-top: 32px; padding-top: 14px; border-top: 1px solid #e8e8e8; display: flex; justify-content: space-between; font-size: 10px; color: #bbb; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0.01ms !important; }
+  }
+</style>
+
+<div class="container">
+
+  <header class="header" style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+    <div>
+      <h1>SOP — Inscription immobilière</h1>
+      <p>Aide-mémoire de l'adjointe · Courtier inscripteur · Contrat de courtage vente (CCV/E)</p>
+    </div>
+    <button class="btn-pdf" id="btn-pdf" title="Télécharger le dossier en PDF">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v7M6.5 8l-2.5-2.5M6.5 8l2.5-2.5M2 11h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      PDF
+    </button>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab active" role="tab" data-tab="step1" aria-selected="true" aria-controls="panel-step1">
+      Étape 1 — Saisie du dossier
+    </button>
+    <button class="tab" role="tab" data-tab="step2" aria-selected="false" aria-controls="panel-step2">
+      Étape 2 — Documents
+    </button>
+  </nav>
+
+  <!-- ═══ STEP 1 — Formulaire de saisie ═══ -->
+  <div class="step-panel active" id="panel-step1" role="tabpanel">
+
+    <!-- Propriété -->
+    <div class="section">
+      <div class="section-title">Propriété (3.1)</div>
+      <div class="form-card">
+        <div class="form-row">
+          <span class="form-label">Adresse (rue)</span>
+          <input class="f-input" type="text" placeholder="123 rue Principale" data-key="adresse">
+        </div>
+        <div class="form-row">
+          <span class="form-label">Ville</span>
+          <input class="f-input" type="text" placeholder="Québec" data-key="ville">
+        </div>
+        <div class="form-row">
+          <span class="form-label">Code postal</span>
+          <input class="f-input sm" type="text" placeholder="G1V 2X2" data-key="code_postal">
+        </div>
+        <div class="form-row">
+          <span class="form-label">Prix de vente</span>
+          <input class="f-input sm" type="text" placeholder="499 000 $" data-key="prix_vente">
+        </div>
+        <div class="form-row">
+          <span class="form-label">Taxable</span>
+          <div class="row-grp" data-id="taxable">
+            <button data-val="non">Non</button>
+            <button data-val="oui">Oui</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vendeurs -->
+    <div class="section">
+      <div class="section-title">Vendeurs</div>
+      <div class="form-card">
+        <div class="form-row top">
+          <span class="form-label">Vendeur 1 <span class="form-sublabel">Nom · Téléphone · Courriel</span></span>
+          <div style="flex:1; display:flex; flex-direction:column; gap:6px; min-width:0;">
+            <input class="f-input" type="text" placeholder="Nom complet" data-key="v1_nom">
+            <input class="f-input" type="tel" placeholder="418-000-0000" data-key="v1_tel">
+            <input class="f-input" type="email" placeholder="courriel@exemple.com" data-key="v1_email">
+          </div>
+        </div>
+        <div class="form-row top">
+          <span class="form-label">Vendeur 2 <span class="form-sublabel">Si applicable</span></span>
+          <div style="flex:1; display:flex; flex-direction:column; gap:6px; min-width:0;">
+            <input class="f-input" type="text" placeholder="Nom complet" data-key="v2_nom">
+            <input class="f-input" type="tel" placeholder="581-000-0000" data-key="v2_tel">
+            <input class="f-input" type="email" placeholder="courriel@exemple.com" data-key="v2_email">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Courtage -->
+    <div class="section">
+      <div class="section-title">Courtage (1.1)</div>
+      <div class="form-card">
+        <div class="form-row">
+          <span class="form-label">Courtier inscripteur</span>
+          <input class="f-input" type="text" placeholder="Prénom Nom" data-key="courtier">
+        </div>
+        <div class="form-row">
+          <span class="form-label">Coordonnées</span>
+          <input class="f-input" type="text" placeholder="Téléphone · courriel" data-key="courtier_coord">
+        </div>
+        <div class="form-row">
+          <span class="form-label">% Commission</span>
+          <input class="f-input sm" type="text" placeholder="5,00 %" data-key="pct_commission">
+        </div>
+        <div class="form-row">
+          <span class="form-label">% Collaboration</span>
+          <input class="f-input sm" type="text" placeholder="2,00 %" data-key="pct_collab">
+        </div>
+      </div>
+    </div>
+
+    <!-- Notaire -->
+    <div class="section">
+      <div class="section-title">Notaire (choix acheteurs)</div>
+      <div class="form-card">
+        <div class="form-row">
+          <span class="form-label">Nom</span>
+          <input class="f-input" type="text" placeholder="Me Prénom Nom" data-key="not_nom">
+        </div>
+        <div class="form-row">
+          <span class="form-label">Adresse</span>
+          <input class="f-input" type="text" placeholder="Adresse de l'étude" data-key="not_adresse">
+        </div>
+        <div class="form-row">
+          <span class="form-label">Courriel</span>
+          <input class="f-input" type="email" placeholder="notaire@exemple.com" data-key="not_email">
+        </div>
+        <div class="form-row">
+          <span class="form-label">Téléphone</span>
+          <input class="f-input sm" type="tel" placeholder="418-000-0000" data-key="not_tel">
+        </div>
+      </div>
+    </div>
+
+    <!-- Conditions & dates -->
+    <div class="section">
+      <div class="section-title">Conditions &amp; dates</div>
+      <div class="cond-wrap">
+        <table class="cond-table">
+          <thead>
+            <tr>
+              <th>Élément</th>
+              <th>Date</th>
+              <th>Détail / note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>5.1 Signature chez le notaire</td>
+              <td><input class="c-input" type="date" data-key="c51_date"></td>
+              <td><input class="c-input" type="text" placeholder="—" data-key="c51_note"></td>
+            </tr>
+            <tr>
+              <td>5.2 Occupation</td>
+              <td><input class="c-input" type="date" data-key="c52_date"></td>
+              <td><input class="c-input" type="text" placeholder="—" data-key="c52_note"></td>
+            </tr>
+            <tr>
+              <td>8.1 – 8.4 Conditions</td>
+              <td><input class="c-input" type="date" data-key="c8_date"></td>
+              <td><input class="c-input" type="text" placeholder="Détail des conditions" data-key="c8_note"></td>
+            </tr>
+            <tr>
+              <td>11.1 Autres clauses</td>
+              <td><input class="c-input" type="date" data-key="c11_date"></td>
+              <td><input class="c-input" type="text" placeholder="Détail" data-key="c11_note"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="step-footer">
+      <span class="progress-txt" id="txt-step1">0 champ rempli</span>
+      <button class="btn-reset" data-reset="step1">Effacer l'étape 1</button>
+    </div>
+  </div>
+
+  <!-- ═══ STEP 2 — Documents ═══ -->
+  <div class="step-panel" id="panel-step2" role="tabpanel">
+
+    <!-- Général -->
+    <div class="section">
+      <div class="section-title">Documents généraux</div>
+      <div class="doc-list">
+        <div class="doc-item">
+          <div class="chk-box" data-id="g-courtage" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-g-courtage">Contrat de courtage signé (client + courtier)</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="g-dv" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-g-dv">Déclaration du vendeur (DV / DVD)</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="g-cert" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-g-cert">Certificat de localisation</span>
+          <input class="note-inp" type="text" placeholder="note" data-key="g-cert-note">
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="g-role" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-g-role">Rôle d'évaluation foncière</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="g-taxes-sc" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-g-taxes-sc">Taxes scolaires</span>
+          <input class="note-inp" type="text" placeholder="note" data-key="g-taxes-sc-note">
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="g-taxes-mu" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-g-taxes-mu">Taxes municipales</span>
+          <input class="note-inp" type="text" placeholder="note" data-key="g-taxes-mu-note">
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="g-canafe" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-g-canafe">CANAFE — vérification d'identité vendeurs</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="g-loi25" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-g-loi25">Loi 25 — Consentement</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Condo -->
+    <div class="section">
+      <div class="section-title">Copropriété <span class="opt-tag">si condo</span></div>
+      <div class="doc-list">
+        <div class="doc-item">
+          <div class="chk-box" data-id="co-reg" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-co-reg">Registre des entreprises <span class="opt-tag">si gestion par entreprise</span></span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="co-conv" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-co-conv">Convention de copropriété <span class="opt-tag">indivise</span></span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="co-attest" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-co-attest">Attestation du syndicat</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="co-frais" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-co-frais">Frais de condo</span>
+          <input class="note-inp" type="text" placeholder="montant / mois" data-key="co-frais-note">
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="co-fond" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-co-fond">Fonds de prévoyance / états financiers</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plex -->
+    <div class="section">
+      <div class="section-title">Plex <span class="opt-tag">si plex</span></div>
+      <div class="doc-list">
+        <div class="doc-item">
+          <div class="chk-box" data-id="px-reso" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-px-reso">Résolution d'entreprise</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="px-baux" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-px-baux">Baux &amp; registre des loyers</span>
+          <input class="note-inp" type="text" placeholder="note" data-key="px-baux-note">
+        </div>
+      </div>
+    </div>
+
+    <!-- Maison neuve -->
+    <div class="section">
+      <div class="section-title">Maison neuve <span class="opt-tag">si construction</span></div>
+      <div class="doc-list">
+        <div class="doc-item">
+          <div class="chk-box" data-id="mn-implant" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-mn-implant">Implantation</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="mn-contrat" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-mn-contrat">Contrat constructeur</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="mn-devis" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-mn-devis">Devis constructeur</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="mn-annexe" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-mn-annexe">Annexe 1</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="mn-plans" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-mn-plans">Plans</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="mn-sol" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-mn-sol">Rapport de sol</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="mn-puits" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-mn-puits">Expertise puits</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="mn-gcr" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-mn-gcr">GCR</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quand PA acceptée -->
+    <div class="section">
+      <div class="section-title">Quand PA acceptée <span class="opt-tag">suivi</span></div>
+      <div class="doc-list">
+        <div class="doc-item">
+          <div class="chk-box" data-id="pa-accept" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-pa-accept">PA acceptée</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="pa-cp" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-pa-cp">Contre-proposition (CP)</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="pa-ar" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-pa-ar">AR financement</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="pa-as" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-pa-as">AS conditions</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="pa-valider" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-pa-valider">Valider contenu 4.4 + 4.5 (confirmer ASIS)</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="pa-preempt" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-pa-preempt">Renonciation au droit de préemption <span class="opt-tag">si 8.1.4 = oui · art. 1022 C.C.Q</span></span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="pa-go" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-pa-go">GO du courtier pour la suite</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="pa-nexone" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-pa-nexone">NEXONE puis Nina</span>
+        </div>
+        <div class="doc-item">
+          <div class="chk-box" data-id="pa-notaire" tabindex="0" role="checkbox" aria-checked="false">
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="doc-name" id="lbl-pa-notaire">Envoyer dossier au notaire</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-footer">
+      <span class="progress-txt" id="txt-step2">0 document traité</span>
+      <button class="btn-reset" data-reset="step2">Effacer l'étape 2</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Hidden PDF render target -->
+<div id="pdf-output" aria-hidden="true"></div>
+
+<script>
+  const _params = new URLSearchParams(location.search);
+  const _oppId = _params.get('opportunityId') || _params.get('opp') || 'default';
+  const KEY = 'sop-inscription-' + _oppId;
+
+  /* ══ Supabase (base de données partagée) ══ */
+  const SB_URL   = 'https://kgbgbuiundduntxarovw.supabase.co';
+  const SB_KEY   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtnYmdidWl1bmRkdW50eGFyb3Z3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkxMDM2NjYsImV4cCI6MjEwNDY3OTY2Nn0.Wg6ut8-nUVXGcbCgBYiF-Wdq_1ttooWiiMjclsffYmA';
+  const SB_TABLE = 'sop_inscription';
+  const SB_READY = SB_URL.indexOf('VOTRE-PROJET') === -1 && SB_KEY.indexOf('VOTRE_ANON') === -1;
+
+  let data = {};
+  try { data = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) {}
+
+  let _saveTimer = null;
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e) {}
+    clearTimeout(_saveTimer);
+    _saveTimer = setTimeout(pushToSupabase, 800);
+  }
+
+  function pushToSupabase() {
+    if (!SB_READY) return;
+    fetch(SB_URL + '/rest/v1/' + SB_TABLE, {
+      method: 'POST',
+      headers: {
+        'apikey': SB_KEY,
+        'Authorization': 'Bearer ' + SB_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates'
+      },
+      body: JSON.stringify({ opportunity_id: _oppId, data: data, updated_at: new Date().toISOString() })
+    }).catch(function(e){ console.warn('[SOP2] Sauvegarde Supabase échouée', e); });
+  }
+
+  async function loadFromSupabase() {
+    if (!SB_READY) return;
+    try {
+      const r = await fetch(SB_URL + '/rest/v1/' + SB_TABLE +
+        '?opportunity_id=eq.' + encodeURIComponent(_oppId) + '&select=data',
+        { headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY } });
+      if (!r.ok) return;
+      const rows = await r.json();
+      if (rows && rows.length && rows[0].data) {
+        data = rows[0].data;
+        try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e) {}
+        hydrateAll();
+      }
+    } catch(e) { console.warn('[SOP2] Chargement Supabase échoué', e); }
+  }
+
+  /* ── Tabs ── */
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const t = tab.dataset.tab;
+      document.querySelectorAll('.tab').forEach(b => {
+        b.classList.toggle('active', b.dataset.tab === t);
+        b.setAttribute('aria-selected', String(b.dataset.tab === t));
+      });
+      document.querySelectorAll('.step-panel').forEach(p => {
+        p.classList.toggle('active', p.id === 'panel-' + t);
+      });
+    });
+  });
+
+  /* ── Step 1: text inputs ── */
+  document.querySelectorAll('[data-key]').forEach(el => {
+    if (data[el.dataset.key]) el.value = data[el.dataset.key];
+    el.addEventListener('input', () => {
+      data[el.dataset.key] = el.value;
+      save();
+      updateStep1Count();
+    });
+  });
+
+  function updateStep1Count() {
+    const inputs = document.querySelectorAll('#panel-step1 [data-key]');
+    let filled = 0;
+    inputs.forEach(el => { if (el.value.trim()) filled++; });
+    document.getElementById('txt-step1').textContent = filled + ' champ' + (filled > 1 ? 's remplis' : ' rempli');
+  }
+
+  /* ── Step 1: button groups (row-grp) ── */
+  document.querySelectorAll('.row-grp').forEach(grp => {
+    const id = grp.dataset.id;
+    grp.querySelectorAll('button').forEach(btn => {
+      if (data[id] === btn.dataset.val) btn.classList.add('sel');
+      btn.addEventListener('click', () => {
+        const already = btn.classList.contains('sel');
+        grp.querySelectorAll('button').forEach(b => b.classList.remove('sel'));
+        if (!already) { btn.classList.add('sel'); data[id] = btn.dataset.val; }
+        else { delete data[id]; }
+        save();
+        updateStep1Count();
+      });
+    });
+  });
+
+  /* ── Step 1 Reset ── */
+  document.querySelector('[data-reset="step1"]').addEventListener('click', () => {
+    document.querySelectorAll('#panel-step1 [data-key]').forEach(el => {
+      el.value = '';
+      delete data[el.dataset.key];
+    });
+    document.querySelectorAll('#panel-step1 .row-grp').forEach(grp => {
+      grp.querySelectorAll('button').forEach(b => b.classList.remove('sel'));
+      delete data[grp.dataset.id];
+    });
+    save();
+    updateStep1Count();
+  });
+
+  /* ── Step 2: checkboxes ── */
+  document.querySelectorAll('.chk-box').forEach(box => {
+    const id = box.dataset.id;
+    if (data[id]) {
+      box.classList.add('checked');
+      box.setAttribute('aria-checked', 'true');
+      const lbl = document.getElementById('lbl-' + id);
+      if (lbl) lbl.classList.add('done');
+    }
+    const toggle = () => {
+      const isChecked = box.classList.toggle('checked');
+      box.setAttribute('aria-checked', String(isChecked));
+      const lbl = document.getElementById('lbl-' + id);
+      if (lbl) lbl.classList.toggle('done', isChecked);
+      data[id] = isChecked || undefined;
+      if (!isChecked) delete data[id];
+      save();
+      updateStep2Count();
+    };
+    box.addEventListener('click', toggle);
+    box.addEventListener('keydown', e => {
+      if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); }
+    });
+  });
+
+  /* ── Step 2: button groups ── */
+  document.querySelectorAll('.btn-grp').forEach(grp => {
+    const id = grp.dataset.id;
+    grp.querySelectorAll('button').forEach(btn => {
+      if (data[id] === btn.dataset.val) btn.classList.add('sel');
+      btn.addEventListener('click', () => {
+        const already = btn.classList.contains('sel');
+        grp.querySelectorAll('button').forEach(b => b.classList.remove('sel'));
+        if (!already) { btn.classList.add('sel'); data[id] = btn.dataset.val; }
+        else { delete data[id]; }
+        save();
+        updateStep2Count();
+      });
+    });
+  });
+
+  /* ── Step 2 Reset ── */
+  document.querySelector('[data-reset="step2"]').addEventListener('click', () => {
+    document.querySelectorAll('#panel-step2 .chk-box').forEach(box => {
+      box.classList.remove('checked');
+      box.setAttribute('aria-checked', 'false');
+      const lbl = document.getElementById('lbl-' + box.dataset.id);
+      if (lbl) lbl.classList.remove('done');
+      delete data[box.dataset.id];
+    });
+    document.querySelectorAll('#panel-step2 .btn-grp').forEach(grp => {
+      grp.querySelectorAll('button').forEach(b => b.classList.remove('sel'));
+      delete data[grp.dataset.id];
+    });
+    document.querySelectorAll('#panel-step2 [data-key]').forEach(el => {
+      el.value = '';
+      delete data[el.dataset.key];
+    });
+    save();
+    updateStep2Count();
+  });
+
+  function updateStep2Count() {
+    let done = 0;
+    document.querySelectorAll('#panel-step2 .chk-box.checked').forEach(() => done++);
+    document.querySelectorAll('#panel-step2 .btn-grp').forEach(grp => {
+      if (grp.querySelector('.sel')) done++;
+    });
+    document.getElementById('txt-step2').textContent =
+      done + ' document' + (done > 1 ? 's traités' : ' traité');
+  }
+
+  /* ── Réapplique `data` à tous les champs (après chargement Supabase) ── */
+  function hydrateAll() {
+    document.querySelectorAll('[data-key]').forEach(el => {
+      el.value = data[el.dataset.key] || '';
+    });
+    document.querySelectorAll('.chk-box').forEach(box => {
+      const id = box.dataset.id;
+      const on = !!data[id];
+      box.classList.toggle('checked', on);
+      box.setAttribute('aria-checked', String(on));
+      const lbl = document.getElementById('lbl-' + id);
+      if (lbl) lbl.classList.toggle('done', on);
+    });
+    document.querySelectorAll('.row-grp, .btn-grp').forEach(grp => {
+      const id = grp.dataset.id;
+      grp.querySelectorAll('button').forEach(b => {
+        b.classList.toggle('sel', data[id] === b.dataset.val);
+      });
+    });
+    updateStep1Count();
+    updateStep2Count();
+  }
+
+  // Init counts
+  updateStep1Count();
+  updateStep2Count();
+
+  // Charge les données partagées depuis Supabase (écrase le cache local si trouvé)
+  loadFromSupabase();
+
+  /* ── PDF Generation ── */
+  function v(key) { return (data[key] || '').trim(); }
+  function fmtDate(key) {
+    const d = v(key);
+    if (!d) return '—';
+    const [y,m,day] = d.split('-');
+    return `${day}/${m}/${y}`;
+  }
+
+  document.getElementById('btn-pdf').addEventListener('click', () => {
+    const addr = v('adresse') || 'Dossier';
+    const now = new Date();
+    const dateStr = `${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()}`;
+
+    function row(label, val) {
+      if (!val) val = '—';
+      return `<tr><td>${label}</td><td>${val}</td></tr>`;
+    }
+    function chkBadge(id) {
+      return data[id]
+        ? `<span class="pdf-chk done"><svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3L3 5L7 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`
+        : `<span class="pdf-chk"></span>`;
+    }
+    function dropBadge(id) {
+      const val = data[id];
+      if (!val) return `<span class="pdf-badge nd">—</span>`;
+      const map = { oui: 'Oui', non: 'Non', na: 'N/A' };
+      return `<span class="pdf-badge ${val}">${map[val]}</span>`;
+    }
+    function docRow(type, id, label, noteKey) {
+      const noteTxt = noteKey ? (v(noteKey) ? `<span class="pdf-note">${v(noteKey)}</span>` : '') : '';
+      const done = data[id];
+      const nameClass = (type === 'chk' && done) ? 'pdf-doc-name done' : 'pdf-doc-name';
+      const badge = type === 'chk' ? chkBadge(id) : dropBadge(id);
+      return `<div class="pdf-doc-row">${badge}<span class="${nameClass}">${label}${noteTxt}</span></div>`;
+    }
+
+    const html = `
+<div class="pdf-title">SOP — Inscription immobilière (CCV/E)</div>
+<div class="pdf-sub">Aide-mémoire courtier inscripteur · Généré le ${dateStr}</div>
+<div class="pdf-addr">${addr}${v('ville') ? ' · ' + v('ville') : ''}${v('code_postal') ? ' · ' + v('code_postal') : ''}</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 40px;">
+
+  <div class="pdf-sect">
+    <div class="pdf-sect-title">Propriété</div>
+    <table class="pdf-table">
+      ${row('Prix de vente', v('prix_vente'))}
+      ${row('Taxable', data['taxable'] ? (data['taxable']==='oui'?'Oui':'Non') : '—')}
+    </table>
+  </div>
+
+  <div class="pdf-sect">
+    <div class="pdf-sect-title">Courtage</div>
+    <table class="pdf-table">
+      ${row('Courtier inscripteur', v('courtier'))}
+      ${row('Coordonnées', v('courtier_coord'))}
+      ${row('% Commission', v('pct_commission'))}
+      ${row('% Collaboration', v('pct_collab'))}
+    </table>
+  </div>
+
+  <div class="pdf-sect" style="grid-column:1/-1;">
+    <div class="pdf-sect-title">Vendeurs</div>
+    <table class="pdf-table">
+      ${v('v1_nom') || v('v1_tel') || v('v1_email') ? row('Vendeur 1', [v('v1_nom'), v('v1_tel'), v('v1_email')].filter(Boolean).join(' · ')) : ''}
+      ${v('v2_nom') || v('v2_tel') || v('v2_email') ? row('Vendeur 2', [v('v2_nom'), v('v2_tel'), v('v2_email')].filter(Boolean).join(' · ')) : ''}
+    </table>
+  </div>
+
+  <div class="pdf-sect" style="grid-column:1/-1;">
+    <div class="pdf-sect-title">Notaire (choix acheteurs)</div>
+    <table class="pdf-table">
+      ${row('Nom', v('not_nom'))}
+      ${row('Adresse', v('not_adresse'))}
+      ${row('Courriel', v('not_email'))}
+      ${row('Téléphone', v('not_tel'))}
+    </table>
+  </div>
+
+</div>
+
+<div class="pdf-sect">
+  <div class="pdf-sect-title">Conditions &amp; dates</div>
+  <table class="pdf-cond-table">
+    <thead><tr><th>Élément</th><th>Date</th><th>Détail</th></tr></thead>
+    <tbody>
+      <tr><td>5.1 Signature notaire</td><td>${fmtDate('c51_date')}</td><td>${v('c51_note')||'—'}</td></tr>
+      <tr><td>5.2 Occupation</td><td>${fmtDate('c52_date')}</td><td>${v('c52_note')||'—'}</td></tr>
+      <tr><td>8.1–8.4 Conditions</td><td>${fmtDate('c8_date')}</td><td>${v('c8_note')||'—'}</td></tr>
+      <tr><td>11.1 Autres clauses</td><td>${fmtDate('c11_date')}</td><td>${v('c11_note')||'—'}</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="pdf-sect">
+  <div class="pdf-sect-title">Documents généraux</div>
+  <div class="pdf-docs-grid">
+    ${docRow('chk','g-courtage','Contrat de courtage signé',null)}
+    ${docRow('chk','g-dv','Déclaration du vendeur (DV/DVD)',null)}
+    ${docRow('chk','g-cert','Certificat de localisation','g-cert-note')}
+    ${docRow('chk','g-role','Rôle d\'évaluation foncière',null)}
+    ${docRow('chk','g-taxes-sc','Taxes scolaires','g-taxes-sc-note')}
+    ${docRow('chk','g-taxes-mu','Taxes municipales','g-taxes-mu-note')}
+    ${docRow('chk','g-canafe','CANAFE — vendeurs',null)}
+    ${docRow('chk','g-loi25','Loi 25 — Consentement',null)}
+  </div>
+</div>
+
+<div class="pdf-sect">
+  <div class="pdf-sect-title">Copropriété (si condo)</div>
+  <div class="pdf-docs-grid">
+    ${docRow('chk','co-reg','Registre des entreprises',null)}
+    ${docRow('chk','co-conv','Convention de copropriété',null)}
+    ${docRow('chk','co-attest','Attestation du syndicat',null)}
+    ${docRow('chk','co-frais','Frais de condo','co-frais-note')}
+    ${docRow('chk','co-fond','Fonds de prévoyance / états fin.',null)}
+  </div>
+</div>
+
+<div class="pdf-sect">
+  <div class="pdf-sect-title">Plex / Maison neuve</div>
+  <div class="pdf-docs-grid">
+    ${docRow('chk','px-reso','Résolution d\'entreprise (plex)',null)}
+    ${docRow('chk','px-baux','Baux & registre des loyers','px-baux-note')}
+    ${docRow('chk','mn-implant','Implantation (neuf)',null)}
+    ${docRow('chk','mn-contrat','Contrat constructeur',null)}
+    ${docRow('chk','mn-devis','Devis constructeur',null)}
+    ${docRow('chk','mn-annexe','Annexe 1',null)}
+    ${docRow('chk','mn-plans','Plans',null)}
+    ${docRow('chk','mn-sol','Rapport de sol',null)}
+    ${docRow('chk','mn-puits','Expertise puits',null)}
+    ${docRow('chk','mn-gcr','GCR',null)}
+  </div>
+</div>
+
+<div class="pdf-sect">
+  <div class="pdf-sect-title">Quand PA acceptée</div>
+  <div class="pdf-docs-grid">
+    ${docRow('chk','pa-accept','PA acceptée',null)}
+    ${docRow('chk','pa-cp','Contre-proposition (CP)',null)}
+    ${docRow('chk','pa-ar','AR financement',null)}
+    ${docRow('chk','pa-as','AS conditions',null)}
+    ${docRow('chk','pa-valider','Valider 4.4 + 4.5 (ASIS)',null)}
+    ${docRow('chk','pa-preempt','Renonciation droit préemption',null)}
+    ${docRow('chk','pa-go','GO du courtier',null)}
+    ${docRow('chk','pa-nexone','NEXONE puis Nina',null)}
+    ${docRow('chk','pa-notaire','Envoyer dossier au notaire',null)}
+  </div>
+</div>
+
+<div class="pdf-footer">
+  <span>SOP — Inscription CCV(E) · OLA</span>
+  <span>${dateStr}</span>
+</div>`;
+
+    const out = document.getElementById('pdf-output');
+    out.innerHTML = html;
+    const container = document.querySelector('.container');
+
+    const filename = addr.replace(/[^a-zA-Z0-9À-ɏ\s\-]/g, '').trim() + ' — Inscription.pdf';
+
+    function restore() {
+      out.innerHTML = '';
+      out.style.position = 'fixed';
+      if (container) container.style.display = '';
+    }
+
+    if (container) container.style.display = 'none';
+    out.style.position = 'static';
+
+    html2pdf().set({
+      filename,
+      margin: 0,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, logging: false },
+      jsPDF: { unit: 'px', format: 'a4', orientation: 'portrait', hotfixes: ['px_scaling'] }
+    }).from(out).save().then(restore).catch(restore);
+  });
+</script>
